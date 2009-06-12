@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/cglib-2.1_3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-1.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.4.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-log4j12-1.4.2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-1.4-rc2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-guice-1.4-rc2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-ioc-1.4-rc2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/h2-1.1.112.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/h2jaqu-1.1.112.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/h2-1.1.114.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-1.4-rc4.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -1,5 +1,8 @@
 package org.mix3.gae_wicket;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.ResourceReference;
@@ -9,12 +12,15 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.target.coding.SharedResourceRequestTargetUrlCodingStrategy;
 import org.apache.wicket.session.ISessionStore;
 import org.mix3.gae_wicket.page.DBBoardPage;
+import org.mix3.gae_wicket.page.HomePage;
  
 public class WicketApplication extends WebApplication{
-    public WicketApplication(){}
+    public WicketApplication(){
+    	Logger.getLogger("org.apache.wicket").log(Level.INFO, "Application Start!");
+    }
     
     public Class<? extends Page> getHomePage(){
-        return DBBoardPage.class;
+        return HomePage.class;
     }
 	
 	@Override
@@ -36,9 +42,10 @@ public class WicketApplication extends WebApplication{
 		getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
 		getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
 		
+		mountBookmarkablePage("/home", HomePage.class);
 		mountBookmarkablePage("/db", DBBoardPage.class);
 		
-		ResourceReference favicon = new ResourceReference(DBBoardPage.class, "favicon.ico");
+		ResourceReference favicon = new ResourceReference(WicketApplication.class, "favicon.ico");
 		mount(new SharedResourceRequestTargetUrlCodingStrategy("/favicon.ico", favicon.getSharedResourceKey()));
 	}
 }

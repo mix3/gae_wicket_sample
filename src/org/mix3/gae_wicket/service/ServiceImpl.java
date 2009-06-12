@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.h2.jaqu.orm.DbManager;
 import org.mix3.gae_wicket.WicketApplication;
 import org.mix3.gae_wicket.model.ArticleModel;
 import org.mix3.gae_wicket.model.CommentModel;
-import org.mix3.gae_wicket.orm.DbManager;
 import org.mix3.gae_wicket.table.Article;
 import org.mix3.gae_wicket.table.Comment;
 
@@ -30,6 +30,7 @@ public class ServiceImpl implements Service{
 		password = dbProperties.getProperty("db.password");
 		
 		dm = new DbManager(uri, username, password);
+		dm.migrate(Article.class, Comment.class);
 	}
 	
 	private Properties getDBProperties() {
@@ -83,7 +84,8 @@ public class ServiceImpl implements Service{
 		Article a = new Article();
 		List<ArticleModel> result = new ArrayList<ArticleModel>();
 		for(Article a_result : dm.from(a).orderByDesc(a.id).select()){
-			result.add(new ArticleModel(a_result));
+			Comment c = new Comment();
+			result.add(new ArticleModel(a_result, dm.from(c).where(c.articleID).is(a_result.id).select()));
 		}
 		return result;
 	}
