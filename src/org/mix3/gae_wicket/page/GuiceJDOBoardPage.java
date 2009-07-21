@@ -1,9 +1,5 @@
 package org.mix3.gae_wicket.page;
 
-import java.util.List;
-
-import javax.jdo.Query;
-
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.basic.MultiLineLabel;
@@ -16,27 +12,29 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.mix3.gae_wicket.entity.ArticleEntity;
 import org.mix3.gae_wicket.entity.CommentEntity;
-import org.mix3.gae_wicket.logic.ArticleEntityLogic;
-import org.mix3.gae_wicket.logic.CommentEntityLogic;
+import org.mix3.gae_wicket.service.JDOService;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
+import com.google.inject.Inject;
 
-public class JDOBoardPage extends MyAbstractWebPage{
+public class GuiceJDOBoardPage extends MyAbstractWebPage{
+	@Inject
+	private JDOService service;
+	
 	@SuppressWarnings("serial")
-	public JDOBoardPage(PageParameters parameters){
+	public GuiceJDOBoardPage(PageParameters parameters){
     	super(parameters);
 		
     	add(new FeedbackPanel("feed"));
         add(new BoardForm("form"));
         
-		add(new PropertyListView<ArticleEntity>("aList", getArticleEntity()){
+		add(new PropertyListView<ArticleEntity>("aList", service.getArticleList()){
 			@Override
 			protected void populateItem(ListItem<ArticleEntity> item) {
 				ArticleEntity as = item.getModelObject();
 		        item.add(new Label("title"));
 		        item.add(new MultiLineLabel("content"));
-				item.add(new PropertyListView<CommentEntity>("cList", getCommentEntity(as)){
+				item.add(new PropertyListView<CommentEntity>("cList", service.getCommentList(as)){
 				    @Override
 				    protected void populateItem(ListItem<CommentEntity> item) {
 				        item.add(new Label("name"));
@@ -59,9 +57,7 @@ public class JDOBoardPage extends MyAbstractWebPage{
         }
 		@Override
 		protected void onSubmit() {
-//			service.createArticle(as);
-			ArticleEntity entity = ArticleEntityLogic.create(as);
-			new ArticleEntityLogic().save(entity);
+			service.createArticle(as);
             setResponsePage(JDOBoardPage.class);
 		}
     }
@@ -78,26 +74,8 @@ public class JDOBoardPage extends MyAbstractWebPage{
 		}
 		@Override
 		protected void onSubmit() {
-//			service.createComment(cs);
-			CommentEntity entity = CommentEntityLogic.create(cs);
-			new CommentEntityLogic().save(entity);
+			service.createComment(cs);
             setResponsePage(JDOBoardPage.class);
 		}
     }
-	
-	private List<ArticleEntity> getArticleEntity(){
-		ArticleEntityLogic logic = new ArticleEntityLogic();
-		Query query = logic.newQuery();
-		query.setOrdering("date desc");
-		return logic.list(query);
-	}
-	
-	private List<CommentEntity> getCommentEntity(ArticleEntity articleEntity){
-		CommentEntityLogic logic = new CommentEntityLogic();
-		Query query = logic.newQuery();
-		query.setFilter("parentKey == pParentKey");
-		query.declareParameters("java.lang.String pParentKey");
-		query.setOrdering("date desc");
-		return logic.listWithParam(query, KeyFactory.keyToString(articleEntity.getKey()));
-	}
 }

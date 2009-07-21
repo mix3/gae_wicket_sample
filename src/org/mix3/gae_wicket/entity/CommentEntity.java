@@ -1,6 +1,7 @@
-package org.mix3.gae_wicket.jdo;
+package org.mix3.gae_wicket.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -13,7 +14,7 @@ import com.google.appengine.api.datastore.Key;
 
 @SuppressWarnings("serial")
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class CommentStore implements Serializable{
+public class CommentEntity implements Serializable{
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
@@ -26,8 +27,22 @@ public class CommentStore implements Serializable{
 	private String name;
 	
 	@Persistent
-	private String contents;
-
+	private String content;
+	
+	@Persistent
+	private Date date;
+	
+//	public CommentEntity(CommentEntity ce){
+//		this(ce.getName(), ce.getContent());
+//		setDate(new Date(System.currentTimeMillis()));
+//	}
+//	public CommentEntity(String name, String content){
+//		setName(name);
+//		setContent(content);
+//		setDate(new Date(System.currentTimeMillis()));
+//	}
+	
+	// getter/setter
 	public Key getKey() {
 		return key;
 	}
@@ -46,10 +61,16 @@ public class CommentStore implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

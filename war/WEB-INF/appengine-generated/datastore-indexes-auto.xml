@@ -1,15 +1,10 @@
-<!-- Indices written at Tue, 21 Jul 2009 14:46:07 UTC -->
+<!-- Indices written at Tue, 21 Jul 2009 18:00:56 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 2 times in query history -->
-    <datastore-index kind="ArticleStore" ancestor="false" source="auto">
-        <property name="__key__" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 2 times in query history -->
-    <datastore-index kind="CommentStore" ancestor="true" source="auto">
-        <property name="__key__" direction="desc"/>
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="CommentEntity" ancestor="true" source="auto">
+        <property name="date" direction="desc"/>
     </datastore-index>
 
 </datastore-indexes>

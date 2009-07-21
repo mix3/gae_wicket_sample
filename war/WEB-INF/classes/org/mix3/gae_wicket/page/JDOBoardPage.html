@@ -6,21 +6,21 @@
     	<span wicket:id="feed" />
         <form wicket:id="form">
             <p>title:<br /><input type="text" wicket:id="title" /></p>
-            <p>contents:<br /><textarea wicket:id="contents"></textarea></p>
+            <p>content:<br /><textarea wicket:id="content"></textarea></p>
             <p><input type="submit" value="submit"></p>
         </form>
         <table border="1" wicket:id="aList">
             <tr>
                 <td width="20%"><span wicket:id="title">title</span>:</td>
-                <td><span wicket:id="contents">contents</span></td>
+                <td><span wicket:id="content">content</span></td>
             </tr>
             <tr wicket:id="cList">
                 <td>＞<span wicket:id="name">name</span></td>
-                <td><span wicket:id="contents">contents</span></td>
+                <td><span wicket:id="content">content</span></td>
             </tr>
             <tr><td colspan=2>
                 <form wicket:id="form">
-                    name:<input type="text" wicket:id="name" /> contents:<input type="text" wicket:id="contents" /> <input type="submit" value="submit">
+                    name:<input type="text" wicket:id="name" /> content:<input type="text" wicket:id="content" /> <input type="submit" value="submit">
                 </form>
             </td></tr>
         </table>

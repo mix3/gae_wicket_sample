@@ -1,4 +1,4 @@
-package org.mix3.gae_wicket.jdo;
+package org.mix3.gae_wicket;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
