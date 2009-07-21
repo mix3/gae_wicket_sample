@@ -23,6 +23,7 @@ public class ServiceImpl implements Service{
 	private String username;
 	private String password;
 	
+	@SuppressWarnings("unchecked")
 	public ServiceImpl() throws ClassNotFoundException, SQLException{
 		Properties dbProperties = getDBProperties();
 		uri = dbProperties.getProperty("db.uri");

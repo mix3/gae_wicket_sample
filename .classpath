@@ -11,6 +11,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-ioc-1.4-rc2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/h2-1.1.114.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-1.4-rc4.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/java_memcached-release_2.0.1.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (2)"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

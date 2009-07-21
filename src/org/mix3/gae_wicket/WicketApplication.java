@@ -13,9 +13,10 @@ import org.apache.wicket.request.target.coding.SharedResourceRequestTargetUrlCod
 import org.apache.wicket.session.ISessionStore;
 import org.mix3.gae_wicket.page.DBBoardPage;
 import org.mix3.gae_wicket.page.HomePage;
+import org.mix3.gae_wicket.page.JDOBoardPage;
  
 public class WicketApplication extends WebApplication{
-    public WicketApplication(){
+	public WicketApplication(){
     	Logger.getLogger("org.apache.wicket").log(Level.INFO, "Application Start!");
     }
     
@@ -32,9 +33,10 @@ public class WicketApplication extends WebApplication{
 	public String getConfigurationType() {
 		return Application.DEPLOYMENT;
 	}
-	
+    
     @Override
     protected void init() {
+    	super.init();
     	this.getResourceSettings().setResourcePollFrequency(null);
     	
     	addComponentInstantiationListener(new GuiceComponentInjector(this));
@@ -44,6 +46,7 @@ public class WicketApplication extends WebApplication{
 		
 		mountBookmarkablePage("/home", HomePage.class);
 		mountBookmarkablePage("/db", DBBoardPage.class);
+		mountBookmarkablePage("/jdo", JDOBoardPage.class);
 		
 		ResourceReference favicon = new ResourceReference(WicketApplication.class, "favicon.ico");
 		mount(new SharedResourceRequestTargetUrlCodingStrategy("/favicon.ico", favicon.getSharedResourceKey()));
