@@ -3,20 +3,23 @@ package org.mix3.gae_wicket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.ResourceReference;
-import org.apache.wicket.guice.GuiceComponentInjector;
 import org.apache.wicket.protocol.http.HttpSessionStore;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.request.target.coding.SharedResourceRequestTargetUrlCodingStrategy;
 import org.apache.wicket.session.ISessionStore;
 import org.mix3.gae_wicket.page.DBBoardPage;
-import org.mix3.gae_wicket.page.GuiceJDOBoardPage;
 import org.mix3.gae_wicket.page.HomePage;
 import org.mix3.gae_wicket.page.JDOBoardPage;
  
 public class WicketApplication extends WebApplication{
+	private boolean isLocalMode = true;
+	
 	public WicketApplication(){
     	Logger.getLogger("org.apache.wicket").log(Level.INFO, "Application Start!");
     }
@@ -32,15 +35,17 @@ public class WicketApplication extends WebApplication{
 	
 	@Override
 	public String getConfigurationType() {
-		return Application.DEPLOYMENT;
+		isLocalMode = super.getServletContext().getServerInfo().startsWith("Google App Engine Development");
+		return isLocalMode ? Application.DEVELOPMENT : Application.DEPLOYMENT;
 	}
     
     @Override
     protected void init() {
     	super.init();
-    	this.getResourceSettings().setResourcePollFrequency(null);
-    	
-    	addComponentInstantiationListener(new GuiceComponentInjector(this));
+    	if(isLocalMode){
+    		getResourceSettings().setResourceWatcher(
+    				new AppEngineModificationWatcher());
+    	}
     	
 		getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
 		getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
@@ -48,9 +53,17 @@ public class WicketApplication extends WebApplication{
 		mountBookmarkablePage("/home", HomePage.class);
 		mountBookmarkablePage("/db", DBBoardPage.class);
 		mountBookmarkablePage("/jdo", JDOBoardPage.class);
-		mountBookmarkablePage("/guice", GuiceJDOBoardPage.class);
 		
 		ResourceReference favicon = new ResourceReference(WicketApplication.class, "favicon.ico");
 		mount(new SharedResourceRequestTargetUrlCodingStrategy("/favicon.ico", favicon.getSharedResourceKey()));
+	}
+
+	@Override
+	protected WebRequest newWebRequest(HttpServletRequest servletRequest) {
+		if(isLocalMode){
+			getResourceSettings().getResourceWatcher(true).start(
+					getResourceSettings().getResourcePollFrequency());
+		}
+		return super.newWebRequest(servletRequest);
 	}
 }

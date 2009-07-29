@@ -27,7 +27,7 @@ public class AbstractLogic<T> {
 	public Query newQuery() {
 		return pm.newQuery(entityClass);
 	}
-
+	
 	public List<T> list(Query query) {
 		try {
 			@SuppressWarnings("unchecked")

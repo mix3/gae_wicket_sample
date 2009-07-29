@@ -9,13 +9,4 @@ public class CommentEntityLogic extends AbstractLogic<CommentEntity>{
 		entity.setDate(new Date(System.currentTimeMillis()));
 		return entity;
 	}
-//	public static CommentEntity create(CommentEntity ce){
-//		CommentEntity entity = new CommentEntity(ce);
-//		return entity;
-//	}
-//	
-//	public static CommentEntity create(String name, String content){
-//		CommentEntity entity = new CommentEntity(name, content);
-//		return entity;
-//	}
 }

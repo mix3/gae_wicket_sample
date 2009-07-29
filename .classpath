@@ -7,11 +7,11 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.4.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-log4j12-1.4.2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-guice-1.4-rc2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-ioc-1.4-rc2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/h2-1.1.114.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-1.4-rc4.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/java_memcached-release_2.0.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/wickext-0.9.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-1.4-rc7.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-guice-1.4-rc7.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/wicket-ioc-1.4-rc7.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (2)"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

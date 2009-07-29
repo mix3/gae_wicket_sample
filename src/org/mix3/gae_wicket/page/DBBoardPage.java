@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.basic.MultiLineLabel;
 import org.apache.wicket.markup.html.form.Form;
@@ -17,6 +19,11 @@ import org.apache.wicket.model.PropertyModel;
 import org.mix3.gae_wicket.model.ArticleModel;
 import org.mix3.gae_wicket.model.CommentModel;
 import org.mix3.gae_wicket.service.Service;
+import org.objetdirect.wickext.core.effects.EffectSpeed;
+import org.objetdirect.wickext.core.effects.fading.FadeOut;
+import org.objetdirect.wickext.core.events.MouseEvent;
+import org.objetdirect.wickext.core.events.WickextAjaxEventBehavior;
+import org.objetdirect.wickext.core.javascript.JsQuery;
 
 import com.google.inject.Inject;
  
@@ -34,6 +41,23 @@ public class DBBoardPage extends MyAbstractWebPage{
 			e.printStackTrace();
 		}
     	
+		WebMarkupContainer div1 = new WebMarkupContainer("firstDiv");
+		add(div1);
+		final WebMarkupContainer div2 = new WebMarkupContainer("secondDiv");
+		div2.setOutputMarkupId(true);
+		add(div2);
+		
+		div1.add(new WickextAjaxEventBehavior(MouseEvent.DBLCLICK){
+			@Override
+			protected void respond(AjaxRequestTarget target) {
+				target.appendJavascript(new JsQuery(div2)
+					.$()
+					.chain(new FadeOut(EffectSpeed.SLOW))
+					.render()
+					.toString());
+			}
+		});
+		
     	add(new FeedbackPanel("feed"));
         add(new BoardForm("form"));
 		add(new ListView("articleList", artileList){
